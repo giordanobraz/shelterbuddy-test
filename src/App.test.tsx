@@ -1,9 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+import { AnimalsListPage } from "./pages/AnimalsListPage";
+import { Provider } from "react-redux";
+import store from "./domain/store";
+
+test("renders table header", () => {
+  render(
+    <Provider store={store}>
+      <AnimalsListPage />
+    </Provider>
+  );
+  const linkElement = screen.getByText(/Your Animals/i);
   expect(linkElement).toBeInTheDocument();
 });
