@@ -4,6 +4,7 @@ import {
   TableHead,
   TablePagination,
   TableProps,
+  Typography,
   styled,
   tableCellClasses,
 } from "@mui/material";
@@ -56,13 +57,17 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
             setOrderBy={setOrderBy}
           />
         </TableHead>
-        <TableBodyRow
-          orderBy={orderBy}
-          order={order}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rows={rows}
-        />
+        {rows.length === 0 ? (
+          <Typography>No results found.</Typography>
+        ) : (
+          <TableBodyRow
+            orderBy={orderBy}
+            order={order}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rows={rows}
+          />
+        )}
       </StyledTable>
       <TablePagination
         component="div"
