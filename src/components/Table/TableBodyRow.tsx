@@ -3,7 +3,9 @@ import {
   Button,
   TableBody,
   TableCell,
+  TableCellProps,
   TableRow,
+  TableRowProps,
   styled,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -24,10 +26,27 @@ interface TableBodyRowProps {
   rows: Data[];
 }
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const CustomTableRow = styled(TableRow)<TableRowProps>({
   backgroundColor: "#f8f8fc",
   borderRadius: "15px",
-}));
+});
+
+const CustomTableCell = styled(TableCell)<TableCellProps>({
+  fontFamily: "Roboto",
+  fontWeight: 500,
+  color: "#000121",
+  fontSize: 16,
+  border: "none",
+  padding: "24px",
+  [`&:first-of-type`]: {
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+  },
+  [`&:last-of-type`]: {
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
+  },
+});
 
 export function TableBodyRow({
   orderBy,
@@ -55,8 +74,8 @@ export function TableBodyRow({
           const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
 
           return (
-            <StyledTableRow key={index}>
-              <TableCell>
+            <CustomTableRow key={index}>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {photo ? (
                   <Avatar
                     alt={row.name}
@@ -68,28 +87,28 @@ export function TableBodyRow({
                 ) : (
                   <Avatar alt={row.name} src={PlaceholderImg}></Avatar>
                 )}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {row.name !== "z" ? row.name : "-"}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {row.type}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {row.breed}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {row.gender}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 {row.color}
-              </TableCell>
-              <TableCell component="th" id={labelId} scope="row">
+              </CustomTableCell>
+              <CustomTableCell component="th" id={labelId} scope="row">
                 <Button variant="text" color="primary">
                   Details
                 </Button>
-              </TableCell>
-            </StyledTableRow>
+              </CustomTableCell>
+            </CustomTableRow>
           );
         })}
     </TableBody>

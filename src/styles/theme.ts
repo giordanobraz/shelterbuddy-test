@@ -15,6 +15,9 @@ declare module "@mui/material/styles" {
         hover: string;
       };
     };
+    typography: {
+      fontFamily: string;
+    };
   }
 }
 
@@ -26,6 +29,9 @@ const theme = createTheme({
     action: {
       hover: "#e6e6e6",
     },
+  },
+  typography: {
+    fontFamily: "Inter, sans-serif",
   },
 });
 

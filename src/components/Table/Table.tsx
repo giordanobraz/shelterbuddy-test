@@ -1,9 +1,12 @@
 import {
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TablePagination,
   TableProps,
+  TableRow,
   Typography,
   styled,
   tableCellClasses,
@@ -14,13 +17,13 @@ import { TableBodyRow } from "./TableBodyRow";
 import { TableHeadRow } from "./TableHeadRow";
 import { useState } from "react";
 
-const StyledTable = styled(Table)<TableProps>(({ theme }) => ({
+const CustomTable = styled(Table)<TableProps>({
   borderCollapse: "separate",
   borderSpacing: "0px 12px",
   [`& .${tableCellClasses.root}`]: {
     borderBottom: "none",
   },
-}));
+});
 
 export type Order = "asc" | "desc";
 
@@ -33,7 +36,7 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Data>("name");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -48,7 +51,7 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
 
   return (
     <TableContainer>
-      <StyledTable>
+      <CustomTable>
         <TableHead>
           <TableHeadRow
             orderBy={orderBy}
@@ -58,7 +61,13 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
           />
         </TableHead>
         {rows.length === 0 ? (
-          <Typography>No results found.</Typography>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <Typography>No results found.</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
         ) : (
           <TableBodyRow
             orderBy={orderBy}
@@ -68,7 +77,7 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
             rows={rows}
           />
         )}
-      </StyledTable>
+      </CustomTable>
       <TablePagination
         component="div"
         rowsPerPageOptions={[5, 10]}

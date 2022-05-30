@@ -1,4 +1,11 @@
-import { Badge, Box, Grid, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  BoxProps,
+  Grid,
+  Typography,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import { Data, createData } from "../../utils/createData.util";
 import { addAnimal, getAnimalsList } from "../../domain/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +14,16 @@ import { useEffect, useState } from "react";
 import { Search } from "../../components/Search/Search";
 import { Table } from "../../components/Table";
 import { fetchAnimalsData } from "../../services/axios";
+
+const CustomBadge = styled(Box)<BoxProps>({
+  color: "#fff",
+  backgroundColor: "#f47500",
+  borderRadius: "100px",
+  padding: "4px 8px",
+  fontSize: "13px",
+  fontWeight: "bold",
+  margin: "0 8px",
+});
 
 export function AnimalsListPage() {
   const dispatch = useDispatch();
@@ -49,14 +66,15 @@ export function AnimalsListPage() {
     <Box px={{ xs: 2, sm: 6, lg: 12 }} pt={12}>
       <Box bgcolor="white" p={4} borderRadius={3} width="100%">
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} alignSelf="center">
-            <Badge badgeContent={animalData.length} color="primary" max={999}>
-              <Typography variant="h5" fontWeight={500} sx={{ mt: 1 }}>
+          <Grid item xs={12} md={7} alignSelf="center">
+            <Box display="flex" alignItems="center" alignSelf="center">
+              <Typography variant="h1" fontWeight={600} fontSize={22}>
                 Your Animals
               </Typography>
-            </Badge>
+              <CustomBadge component="span">{animalData.length}</CustomBadge>
+            </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <Search searchValue={searchValue} setSearchValue={setSearchValue} />
           </Grid>
         </Grid>

@@ -1,4 +1,11 @@
-import { Box, TableCell, TableRow, TableSortLabel } from "@mui/material";
+import {
+  Box,
+  TableCell,
+  TableCellProps,
+  TableRow,
+  TableSortLabel,
+  styled,
+} from "@mui/material";
 
 import { Data } from "../../utils/createData.util";
 import { Order } from "./Table";
@@ -10,6 +17,14 @@ interface TableHeadRowProps {
   setOrderBy: (property: keyof Data) => void;
   setOrder: (order: Order) => void;
 }
+
+const CustomTableCell = styled(TableCell)<TableCellProps>({
+  fontFamily: "Roboto",
+  fontWeight: 400,
+  fontSize: 16,
+  border: "none",
+  color: "#707183",
+});
 
 export function TableHeadRow({
   orderBy,
@@ -34,7 +49,7 @@ export function TableHeadRow({
   return (
     <TableRow>
       {headCells.map((headCell) => (
-        <TableCell
+        <CustomTableCell
           key={headCell.id}
           align={headCell.numeric ? "right" : "left"}
           sortDirection={orderBy === headCell.id ? order : false}
@@ -51,7 +66,7 @@ export function TableHeadRow({
               </Box>
             ) : null}
           </TableSortLabel>
-        </TableCell>
+        </CustomTableCell>
       ))}
     </TableRow>
   );
