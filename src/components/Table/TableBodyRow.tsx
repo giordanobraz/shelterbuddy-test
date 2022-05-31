@@ -1,6 +1,7 @@
 import {
   Avatar,
   Button,
+  ButtonProps,
   TableBody,
   TableCell,
   TableCellProps,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
+import { ChevronRight } from "@mui/icons-material";
 import { Data } from "../../utils/createData.util";
 import { Order } from "./Table";
 import PlaceholderImg from "../../assets/placeholder.png";
@@ -46,6 +48,14 @@ const CustomTableCell = styled(TableCell)<TableCellProps>({
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
   },
+});
+
+const CustomButton = styled(Button)<ButtonProps>({
+  fontFamily: "Roboto",
+  fontWeight: 600,
+  fontSize: 16,
+  color: "#002fd6",
+  textTransform: "capitalize",
 });
 
 export function TableBodyRow({
@@ -104,9 +114,9 @@ export function TableBodyRow({
                 {row.color}
               </CustomTableCell>
               <CustomTableCell component="th" id={labelId} scope="row">
-                <Button variant="text" color="primary">
-                  Details
-                </Button>
+                <CustomButton variant="text">
+                  Details <ChevronRight />
+                </CustomButton>
               </CustomTableCell>
             </CustomTableRow>
           );
