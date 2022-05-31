@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import { Data } from "../../utils/createData.util";
-import { Pagination } from "../Pagination/Pagination";
+import { Pagination } from "../Pagination";
 import { TableBodyRow } from "./TableBodyRow";
 import { TableHeadRow } from "./TableHeadRow";
 import { useState } from "react";
@@ -36,10 +36,6 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Data>("name");
   const [page, setPage] = useState(0);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
 
   return (
     <TableContainer>

@@ -1,5 +1,6 @@
+import { Stack, useMediaQuery } from "@mui/material";
+
 import { PaginationItem } from "./PaginationItem";
-import { Stack } from "@mui/material";
 
 interface PaginationProps {
   totalRegisters: number;
@@ -20,6 +21,8 @@ export function Pagination({
   currentPage,
   setCurrentPage,
 }: PaginationProps) {
+  const mediaQuery = useMediaQuery("(max-width:810px)");
+
   const lastPage = Math.ceil(totalRegisters / rowsPerPage);
 
   const previousPages =
@@ -29,7 +32,7 @@ export function Pagination({
     currentPage < lastPage ? generatePagesArray(currentPage + 1, lastPage) : [];
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" overflow={mediaQuery ? "scroll" : "hidden"}>
       {currentPage > 0 && (
         <PaginationItem number={0} onPageChange={setCurrentPage} />
       )}

@@ -11,6 +11,7 @@ import { addAnimal, getAnimalsList } from "../../domain/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { List } from "../../components/List/List";
 import { Search } from "../../components/Search/Search";
 import { Table } from "../../components/Table";
 import { fetchAnimalsData } from "../../services/axios";
@@ -80,7 +81,11 @@ export function AnimalsListPage() {
         </Grid>
         <Box display="flex" mt={2}>
           <Box flexGrow={1} overflow={mediaQuery ? "scroll" : "hidden"}>
-            <Table filteredAnimalList={filteredAnimalList} />
+            {mediaQuery ? (
+              <List filteredAnimalList={filteredAnimalList} />
+            ) : (
+              <Table filteredAnimalList={filteredAnimalList} />
+            )}
           </Box>
         </Box>
       </Box>
