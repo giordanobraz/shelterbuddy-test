@@ -32,7 +32,11 @@ export function Pagination({
     currentPage < lastPage ? generatePagesArray(currentPage + 1, lastPage) : [];
 
   return (
-    <Stack direction="row" overflow={mediaQuery ? "scroll" : "hidden"}>
+    <Stack
+      role="pagination-buttons"
+      direction="row"
+      overflow={mediaQuery ? "scroll" : "hidden"}
+    >
       {currentPage > 0 && (
         <PaginationItem number={0} onPageChange={setCurrentPage} />
       )}

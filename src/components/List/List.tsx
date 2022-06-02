@@ -91,6 +91,7 @@ export function List({ filteredAnimalList }: ListProps) {
   const rows = filteredAnimalList;
   const [page, setPage] = useState(0);
   const [photos, setPhotos] = useState<any>([]);
+
   useEffect(() => {
     fetchAnimalsPhotoData().then((response) => {
       setPhotos(response?.Data);
@@ -107,7 +108,7 @@ export function List({ filteredAnimalList }: ListProps) {
           const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
 
           return (
-            <CustomAccordion key={index}>
+            <CustomAccordion key={index} role="list-item">
               <CustomAccordionSumary
                 expandIcon={<GridExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -134,7 +135,7 @@ export function List({ filteredAnimalList }: ListProps) {
                   <Typography>{row.name !== "z" ? row.name : "-"}</Typography>
                 </Box>
               </CustomAccordionSumary>
-              <AccordionDetails>
+              <AccordionDetails role="list-item-details">
                 <Box display="flex" flexDirection="column" gap={1}>
                   {buildDetails("Type", row.type)}
                   {buildDetails("Breed", row.breed)}

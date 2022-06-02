@@ -39,7 +39,7 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
 
   return (
     <TableContainer>
-      <CustomTable>
+      <CustomTable role="animals-table">
         <TableHead>
           <TableHeadRow
             orderBy={orderBy}
