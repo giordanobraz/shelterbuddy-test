@@ -22,9 +22,9 @@ describe("AnimalListPage", () => {
     );
 
     const searchInput = screen.getByPlaceholderText("Search an animal by name");
-    userEvent.type(searchInput, "Biggie");
+    userEvent.type(searchInput, "big");
 
-    expect(await screen.findByText("Biggie")).toBeInTheDocument();
+    expect(await screen.findByText("Big Sean")).toBeInTheDocument();
   });
 
   it("should show a message if it doesn't find an animal", async () => {
