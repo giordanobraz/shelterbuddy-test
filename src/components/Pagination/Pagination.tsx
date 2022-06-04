@@ -2,17 +2,11 @@ import { Stack, useMediaQuery } from "@mui/material";
 
 import { PaginationItem } from "./PaginationItem";
 
-interface PaginationProps {
+export interface PaginationProps {
   totalRegisters: number;
   rowsPerPage: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;
-}
-
-function generatePagesArray(from: number, to: number) {
-  return [...new Array(to - from)]
-    .map((_, index) => from + index)
-    .filter((page) => page > 0);
 }
 
 export function Pagination({
@@ -23,42 +17,22 @@ export function Pagination({
 }: PaginationProps) {
   const mediaQuery = useMediaQuery("(max-width:810px)");
 
-  const lastPage = Math.ceil(totalRegisters / rowsPerPage);
+  const totalPageCount = Math.ceil(totalRegisters / rowsPerPage);
 
-  const previousPages =
-    currentPage > 0 ? generatePagesArray(0, currentPage) : [];
+  const range = (start: number, end: number) => {
+    let length = end - start + 1;
+    return Array.from({ length }, (_, i) => i + start);
+  };
 
-  const nextPages =
-    currentPage < lastPage ? generatePagesArray(currentPage + 1, lastPage) : [];
+  const pages = range(0, totalPageCount - 1);
 
   return (
-    <Stack
-      role="pagination-buttons"
-      direction="row"
-      overflow={mediaQuery ? "scroll" : "hidden"}
-    >
-      {currentPage > 0 && (
-        <PaginationItem number={0} onPageChange={setCurrentPage} />
-      )}
-
-      {previousPages.map((page) => (
+    <Stack direction="row" overflow={mediaQuery ? "scroll" : "hidden"}>
+      {pages.map((page) => (
         <PaginationItem
           key={page}
           number={page}
-          onPageChange={setCurrentPage}
-        />
-      ))}
-
-      <PaginationItem
-        number={currentPage}
-        isCurrent
-        onPageChange={setCurrentPage}
-      />
-
-      {nextPages.map((page) => (
-        <PaginationItem
-          key={page}
-          number={page}
+          isCurrent={page === currentPage}
           onPageChange={setCurrentPage}
         />
       ))}

@@ -1,38 +1,55 @@
 import { render, screen } from "@testing-library/react";
 
+import { ComponentProps } from "react";
+import { Data } from "../../utils/createData.util";
 import { List } from "./List";
 import userEvent from "@testing-library/user-event";
 
-const data = [
+describe("List", () => {
+  it("should render with data", () => {
+    const { container } = getRenderer();
+    expect(container).toMatchSnapshot();
+  });
+
+  it("should open accordion when clicked", () => {
+    getRenderer();
+    const accordion = screen.getByRole("button", { name: "Lion Lion" });
+    expect(accordion.getAttribute("aria-expanded")).toBe("false");
+    userEvent.click(accordion);
+    expect(accordion.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("should close accordion when clicked", () => {
+    getRenderer();
+    const accordion = screen.getByRole("button", { name: "Lion Lion" });
+    userEvent.click(accordion);
+    expect(accordion.getAttribute("aria-expanded")).toBe("true");
+    userEvent.click(accordion);
+    expect(accordion.getAttribute("aria-expanded")).toBe("false");
+  });
+});
+
+const animals: Data[] = [
   {
     id: 1,
-    name: "test",
-    type: "dog",
-    breed: "pinscher",
-    gender: "male",
-    color: "black",
+    name: "Lion",
+    breed: "Poodle",
+    color: "Black",
+    gender: "Male",
+    type: "Dog",
+  },
+  {
+    id: 2,
+    name: "Brad",
+    breed: "Husky",
+    color: "White",
+    gender: "Male",
+    type: "Dog",
   },
 ];
 
-describe("ListComponent", () => {
-  it("should return an item from the list", () => {
-    render(<List filteredAnimalList={data} />);
-
-    expect(screen.getByRole("list-item")).toBeInTheDocument();
-  });
-
-  it("should open the accordion and show details", () => {
-    const { container } = render(<List filteredAnimalList={data} />);
-
-    expect(screen.queryByRole("list-item-details")).not.toBeInTheDocument();
-
-    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const accordionButton = container.getElementsByClassName(
-      "MuiAccordionSummary-expandIconWrapper"
-    );
-
-    userEvent.click(accordionButton[0]);
-
-    expect(screen.getByRole("list-item-details")).toBeInTheDocument();
-  });
-});
+function getRenderer({
+  filteredAnimalList = animals,
+}: Partial<ComponentProps<typeof List>> = {}) {
+  return render(<List filteredAnimalList={filteredAnimalList} />);
+}

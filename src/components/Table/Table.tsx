@@ -1,5 +1,5 @@
 import {
-  Table,
+  Table as BaseTable,
   TableBody,
   TableCell,
   TableContainer,
@@ -17,7 +17,7 @@ import { TableBodyRow } from "./TableBodyRow";
 import { TableHeadRow } from "./TableHeadRow";
 import { useState } from "react";
 
-const CustomTable = styled(Table)<TableProps>({
+const CustomTable = styled(BaseTable)<TableProps>({
   borderCollapse: "separate",
   borderSpacing: "0px 12px",
   [`& .${tableCellClasses.root}`]: {
@@ -31,7 +31,7 @@ interface TableAnimalsProps {
   filteredAnimalList: Data[];
 }
 
-export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
+export function Table({ filteredAnimalList }: TableAnimalsProps) {
   const rows = filteredAnimalList;
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Data>("name");
@@ -39,7 +39,7 @@ export function TableAnimals({ filteredAnimalList }: TableAnimalsProps) {
 
   return (
     <TableContainer>
-      <CustomTable role="animals-table">
+      <CustomTable>
         <TableHead>
           <TableHeadRow
             orderBy={orderBy}

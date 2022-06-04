@@ -6,12 +6,9 @@ import store from "../../domain/store";
 import userEvent from "@testing-library/user-event";
 
 describe("AnimalListPage", () => {
-  it("should render with the store data", () => {
-    render(
-      <Provider store={store}>
-        <AnimalsListPage />
-      </Provider>
-    );
+  it("should render", () => {
+    const { container } = getRenderer();
+    expect(container).toMatchSnapshot();
   });
 
   it("should search and find an animal", async () => {
@@ -38,14 +35,12 @@ describe("AnimalListPage", () => {
     userEvent.type(searchInput, "Donald");
     expect(await screen.findByText("No results found.")).toBeInTheDocument();
   });
-
-  it("should render pagination buttons", async () => {
-    render(
-      <Provider store={store}>
-        <AnimalsListPage />
-      </Provider>
-    );
-
-    expect(await screen.findByRole("pagination-buttons")).toBeInTheDocument();
-  });
 });
+
+function getRenderer() {
+  return render(
+    <Provider store={store}>
+      <AnimalsListPage />
+    </Provider>
+  );
+}

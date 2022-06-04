@@ -29,12 +29,16 @@ const CustomOutlinedInput = styled(OutlinedInput)<OutlinedInputProps>({
 });
 
 export function Search({ searchValue, setSearchValue }: SearchProps) {
+  function onChangeInput({ target }: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(target.value);
+  }
+
   return (
     <CustomOutlinedInput
       fullWidth
       placeholder="Search an animal by name"
       value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
+      onChange={onChangeInput}
       startAdornment={
         <InputAdornment position="start">
           <SearchOutlinedIcon />

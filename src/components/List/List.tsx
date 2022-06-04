@@ -98,57 +98,58 @@ export function List({ filteredAnimalList }: ListProps) {
     });
   }, []);
 
+  const slicedRows = rows
+    .slice()
+    .sort(getComparator("asc", "name"))
+    .slice(page * 10, page * 10 + 10);
+
   return (
     <Box>
-      {rows
-        .slice()
-        .sort(getComparator("asc", "name"))
-        .slice(page * 10, page * 10 + 10)
-        .map((row, index) => {
-          const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
+      {slicedRows.map((row, index) => {
+        const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
 
-          return (
-            <CustomAccordion key={index} role="list-item">
-              <CustomAccordionSumary
-                expandIcon={<GridExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+        return (
+          <CustomAccordion key={index}>
+            <CustomAccordionSumary
+              expandIcon={<GridExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Box
+                component="div"
+                display="flex"
+                flexWrap="wrap"
+                alignItems="center"
+                gap={2}
               >
-                <Box
-                  component="div"
-                  display="flex"
-                  flexWrap="wrap"
-                  alignItems="center"
-                  gap={2}
-                >
-                  {photo ? (
-                    <Avatar
-                      alt={row.name}
-                      src={`${BASE_PHOTO_URL}${photo.Photo.replace(
-                        "/1024---n",
-                        ""
-                      )}`}
-                    />
-                  ) : (
-                    <Avatar alt={row.name} src={PlaceholderImg}></Avatar>
-                  )}
-                  <Typography>{row.name !== "z" ? row.name : "-"}</Typography>
-                </Box>
-              </CustomAccordionSumary>
-              <AccordionDetails role="list-item-details">
-                <Box display="flex" flexDirection="column" gap={1}>
-                  {buildDetails("Type", row.type)}
-                  {buildDetails("Breed", row.breed)}
-                  {buildDetails("Gender", row.gender)}
-                  {buildDetails("Color", row.color)}
-                  <CustomButton>
-                    Details <ChevronRight />
-                  </CustomButton>
-                </Box>
-              </AccordionDetails>
-            </CustomAccordion>
-          );
-        })}
+                {photo ? (
+                  <Avatar
+                    alt={row.name}
+                    src={`${BASE_PHOTO_URL}${photo.Photo.replace(
+                      "/1024---n",
+                      ""
+                    )}`}
+                  />
+                ) : (
+                  <Avatar alt={row.name} src={PlaceholderImg}></Avatar>
+                )}
+                <Typography>{row.name !== "z" ? row.name : "-"}</Typography>
+              </Box>
+            </CustomAccordionSumary>
+            <AccordionDetails>
+              <Box display="flex" flexDirection="column" gap={1}>
+                {buildDetails("Type", row.type)}
+                {buildDetails("Breed", row.breed)}
+                {buildDetails("Gender", row.gender)}
+                {buildDetails("Color", row.color)}
+                <CustomButton>
+                  Details <ChevronRight />
+                </CustomButton>
+              </Box>
+            </AccordionDetails>
+          </CustomAccordion>
+        );
+      })}
       <Pagination
         currentPage={page}
         setCurrentPage={setPage}

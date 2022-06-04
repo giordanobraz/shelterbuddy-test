@@ -1,3 +1,3 @@
-import { TableAnimals } from "./Table";
+import { Table } from "./Table";
 
-export { TableAnimals as Table };
+export { Table };

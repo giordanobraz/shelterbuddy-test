@@ -73,54 +73,55 @@ export function TableBodyRow({
     });
   }, []);
 
+  const slicedRows = rows
+    .slice()
+    .sort(getComparator(order, orderBy))
+    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <TableBody>
-      {rows
-        .slice()
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row, index) => {
-          const labelId = `enhanced-table-checkbox-${index}`;
-          const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
+      {slicedRows.map((row, index) => {
+        const labelId = `enhanced-table-checkbox-${index}`;
+        const photo = photos.find((photo: any) => photo.Animal.Id === row.id);
 
-          return (
-            <CustomTableRow key={index}>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {photo ? (
-                  <Avatar
-                    alt={row.name}
-                    src={`${BASE_PHOTO_URL}${photo.Photo.replace(
-                      "/1024---n",
-                      ""
-                    )}`}
-                  />
-                ) : (
-                  <Avatar alt={row.name} src={PlaceholderImg}></Avatar>
-                )}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {row.name !== "z" ? row.name : "-"}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {row.type}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {row.breed}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {row.gender}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                {row.color}
-              </CustomTableCell>
-              <CustomTableCell component="th" id={labelId} scope="row">
-                <CustomButton variant="text">
-                  Details <ChevronRight />
-                </CustomButton>
-              </CustomTableCell>
-            </CustomTableRow>
-          );
-        })}
+        return (
+          <CustomTableRow key={index}>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {photo ? (
+                <Avatar
+                  alt={row.name}
+                  src={`${BASE_PHOTO_URL}${photo.Photo.replace(
+                    "/1024---n",
+                    ""
+                  )}`}
+                />
+              ) : (
+                <Avatar alt={row.name} src={PlaceholderImg}></Avatar>
+              )}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {row.name !== "z" ? row.name : "-"}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {row.type}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {row.breed}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {row.gender}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              {row.color}
+            </CustomTableCell>
+            <CustomTableCell component="th" id={labelId} scope="row">
+              <CustomButton variant="text">
+                Details <ChevronRight />
+              </CustomButton>
+            </CustomTableCell>
+          </CustomTableRow>
+        );
+      })}
     </TableBody>
   );
 }
