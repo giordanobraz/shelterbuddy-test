@@ -30,7 +30,7 @@ interface TableBodyRowProps {
 
 const CustomTableRow = styled(TableRow)<TableRowProps>({
   backgroundColor: "#f8f8fc",
-  borderRadius: "15px",
+  borderRadius: 15,
 });
 
 const CustomTableCell = styled(TableCell)<TableCellProps>({
@@ -39,7 +39,7 @@ const CustomTableCell = styled(TableCell)<TableCellProps>({
   color: "#000121",
   fontSize: 16,
   border: "none",
-  padding: "24px",
+  padding: 24,
   [`&:first-of-type`]: {
     borderTopLeftRadius: 12,
     borderBottomLeftRadius: 12,

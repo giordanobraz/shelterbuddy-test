@@ -19,9 +19,9 @@ import { fetchAnimalsData } from "../../services/axios";
 const CustomBadge = styled(Box)<BoxProps>({
   color: "#fff",
   backgroundColor: "#f47500",
-  borderRadius: "100px",
+  borderRadius: 100,
   padding: "4px 8px",
-  fontSize: "13px",
+  fontSize: 13,
   fontWeight: "bold",
   margin: "0 8px",
 });

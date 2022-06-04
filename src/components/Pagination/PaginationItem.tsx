@@ -1,9 +1,9 @@
 import { IconButton, IconButtonProps, styled } from "@mui/material";
 
 const CustomButton = styled(IconButton)<IconButtonProps>({
-  width: "40px",
-  height: "40px",
-  margin: "4px",
+  width: 40,
+  height: 40,
+  margin: 4,
   fontSize: 16,
   fontWeight: 600,
   borderRadius: "50%",

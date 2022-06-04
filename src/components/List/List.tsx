@@ -33,9 +33,9 @@ const BASE_PHOTO_URL = "https://shelterbuddy-us-uat.shelterbuddy.io";
 const CustomAccordion = styled(Accordion)<AccordionProps>({
   [`&.${accordionClasses.root}`]: {
     backgroundColor: "#f8f8fc",
-    borderRadius: "12px",
+    borderRadius: 12,
+    padding: 12,
     margin: "12px 0",
-    padding: "12px",
     boxShadow: "none",
     [`&:before`]: {
       display: "none",
