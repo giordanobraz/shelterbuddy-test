@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 import { AnimalsListPage } from "./AnimalsListPage";
 import { Provider } from "react-redux";
@@ -12,28 +12,21 @@ describe("AnimalListPage", () => {
   });
 
   it("should search and find an animal", async () => {
-    render(
-      <Provider store={store}>
-        <AnimalsListPage />
-      </Provider>
-    );
-
+    getRenderer();
     const searchInput = screen.getByPlaceholderText("Search an animal by name");
     userEvent.type(searchInput, "big");
-
-    expect(await screen.findByText("Big Sean")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Big Sean")).toBeInTheDocument();
+    });
   });
 
   it("should show a message if it doesn't find an animal", async () => {
-    render(
-      <Provider store={store}>
-        <AnimalsListPage />
-      </Provider>
-    );
-
+    getRenderer();
     const searchInput = screen.getByPlaceholderText("Search an animal by name");
     userEvent.type(searchInput, "Donald");
-    expect(await screen.findByText("No results found.")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("No results found.")).toBeInTheDocument();
+    });
   });
 });
 
