@@ -1,7 +1,9 @@
 import axios from "axios";
 
+export const BASE_URL = "https://shelterbuddy.vercel.app/assets/data/";
+
 const AXIOS = axios.create({
-  baseURL: "https://shelterbuddy.vercel.app/assets/data/",
+  baseURL: BASE_URL,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
